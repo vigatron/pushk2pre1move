@@ -1,0 +1,25 @@
+{
+"cmake.debugConfig": {
+		"args": [
+
+			"examples/example1.scr", "0", "cfg/zx_filter_a.yaml", "examples/results/example1a.scr"
+			// "examples/example1.scr", "0", "cfg/zx_filter_b.yaml", "examples/results/example1b.scr"
+
+			// "examples/results/example1a.scr", "0", "cfg/zx_filter_ar.yaml", "examples/check/example1ar.scr"
+			// "examples/results/example1b.scr", "0", "cfg/zx_filter_br.yaml", "examples/check/example1br.scr"
+
+			// --------------------------------------------------------------------------------------------------
+			// "examples/example1.scr", "0", "cfg/zxfilterb.yaml", "examples/results/example1b.scr"
+
+			// "examples/example2.scr", "0", "cfg/zxfiltera.yaml", "examples/results/example2a.scr"
+			// "examples/example2.scr", "0", "cfg/zxfilterb.yaml", "examples/results/example2b.scr"
+
+			// "examples/example7.bin", "0", "cfg/clfiltera.yaml", "examples/results/example7a.bin"
+			// "examples/results/example7a.bin", "0", "cfg/clfilterar.yaml", "examples/check/example7ar.bin"
+
+			// "examples/example7.bin", "0", "cfg/clfilterb.yaml", "examples/results/example7b.bin"
+			// "examples/results/example7b.bin", "0", "cfg/clfilterbr.yaml", "examples/check/example7br.bin"
+
+			]
+		}
+}
