@@ -3,6 +3,8 @@
 PRE-FILTER-1    BLOCKMOVE
 -------------------------------------------
 
+Author : V01G04A81 Viktor Glebov
+
 ***Block Move / Transform***
 
 ## Overview
@@ -206,7 +208,12 @@ example1 - example8 : compressed files
 
 ---
 
-### examples_trix : Compression Benchmark 
+### Compression Benchmark Trixs
+
+https://trixs.sk/8bit-computer/ 
+
+examples_trix folder content : 
+
 
 > Values represent: **original → transformed → fragmented**
 
@@ -250,3 +257,45 @@ example1 - example8 : compressed files
 | trix35.scr | 4009 / 3949 / 3621   | 4184 / 4116 / 3755   | 4570 / 4525 / 3943   | 4058 / 4006 / 3634   | 3871 / 3835 / 3510   | 4120 / 4036 / 3707   | 3916 / 3880 / 3556   | 4199 / 4148 / 3776   |
 | trix36.scr | 4141 / 4063 / 3718   | 4128 / 4107 / 3832   | 4423 / 4437 / 4047   | 4015 / 3998 / 3710   | 4017 / 3942 / 3589   | 4116 / 4069 / 3773   | 4064 / 3988 / 3636   | 4156 / 4140 / 3852   |
 | trix37.scr | 4294 / 4183 / 3768   | 4378 / 4347 / 3911   | 4698 / 4700 / 4014   | 4257 / 4236 / 3798   | 4149 / 4033 / 3650   | 4406 / 4340 / 3829   | 4196 / 4080 / 3696   | 4398 / 4378 / 3940   |
+
+
+| New Name   | Original Name |
+|------------|--------------|
+| trix1.scr  | Trixs - Cannibal Island 2 (2022).scr |
+| trix2.scr  | Trixs - Chase (2021).scr |
+| trix3.scr  | Trixs - Conscience (2015).scr |
+| trix4.scr  | Trixs - Desert dream (2023).scr |
+| trix5.scr  | Trixs - Dizzzruptor (2012) (Forever XIII).scr |
+| trix6.scr  | Trixs - Draco (2023).scr |
+| trix7.scr  | Trixs - Eclipse (2009) (ArtField 2009, 2).scr |
+| trix8.scr  | Trixs - Fantastic World (2012) (Forever XIII, 8).scr |
+| trix9.scr  | Trixs - Fear (2008) (Forever 9, 3).scr |
+| trix10.scr | Trixs - Forenext (2009) (FOReVER_neXt, 2).scr |
+| trix11.scr | Trixs - Forest Escape (2023).scr |
+| trix12.scr | Trixs - Freedom (2014) (Forever 2014 Olympic Edition, 4).scr |
+| trix13.scr | Trixs - Future (2011) (DiHalt 2011, 3).scr |
+| trix14.scr | Trixs - Gemba (2011).scr |
+| trix15.scr | Trixs - Johnny the Ghost (2023).scr |
+| trix16.scr | Trixs - Journey (2024).scr |
+| trix17.scr | Trixs - Kral (2010) (DiHalt 2010, 2).scr |
+| trix18.scr | Trixs - Kral 2 (2022).scr |
+| trix19.scr | Trixs - Krivan (2021).scr |
+| trix20.scr | Trixs - LAND (2010) (FOReVER 11, 2).scr |
+| trix21.scr | Trixs - Land of freedom (2023).scr |
+| trix22.scr | Trixs - My Jeep ZJ (2010) (ZX AAA Demo Compo 2010, 3).scr |
+| trix23.scr | Trixs - My world (2014) (Chaos Constructions 2014, 4).scr |
+| trix24.scr | Trixs - New Wave (2013).scr |
+| trix25.scr | Trixs - Nomind (2014).scr |
+| trix26.scr | Trixs - Oldman (2023).scr |
+| trix27.scr | Trixs - Pixel (2009).scr |
+| trix28.scr | Trixs - Racer (2019) (DiHalt Lite 2019, 2).scr |
+| trix29.scr | Trixs - Spectrum light (2010) (ArtField 2010, 5).scr |
+| trix30.scr | Trixs - Spiderman (2011) (FOReVER 12, 9).scr |
+| trix31.scr | Trixs - Spiderman2 (2005) (Forever Hex, 3).scr |
+| trix32.scr | Trixs - Spy (2020) (DiHalt Lite 2020, 1).scr |
+| trix33.scr | Trixs - SRT22 (2022).scr |
+| trix34.scr | Trixs - unknown (2015) (Forever 2015 Back to the Cyberspace).scr |
+| trix35.scr | Trixs - Waiting for freedom (2023).scr |
+| trix36.scr | Trixs - Way home (2023).scr |
+| trix37.scr | Trixs - ZX Cyber (2009) (Raww.orgy 2009, 1).scr |
+
