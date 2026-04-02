@@ -1,24 +1,14 @@
 #include "vhplatform.hpp"
-
 #include "yinput.hpp"
 #include "membuff.hpp"
 #include "cntblkmv.hpp"
+#include "allerrs.hpp"
 
-// Values : 0 1 2
+// Values : 0 - 2
+#ifndef DBG_VERBOSE
 #define DBG_VERBOSE 0
+#endif
 
-// ----------------------------------------------------------------------------------
-
-enum appErrs {
-	appErr_AllOk = 0,				// Successful result
-	appErr_NotEnoughArgs,			// Не хватает входных данных
-	appErr_SourceFileMissed,		// Source failed / wrong path ?
-	appErr_ReadSourceFileIO,		// I/O Error
-	appErr_ConfigFileMissed,		// Invalid configuration file
-	appErr_YAMLParserError,			// Parser error
-	appErr_InvalidDestination,		// Destination failed ( fname )
-	appErr_TransformationFailed		// Bounds Check failed
-};
 
 // ----------------------------------------------------------------------------------
 
@@ -68,12 +58,12 @@ bool Transform( BinaryBuffer & scrbuff , int start_offset , Config & cfg , Binar
 		uint8_t * psrc = scrbuff.raw() + addrf;
 		uint8_t * pdst = dstbuff.raw() + addrt;
 
-		# if DBG_VERBOSE >= 2
-		std::cout << "Operation #" << cnt << " @FR : " << addrf << " @TO : " << addrt << " SZ( " << blksz << " )\n";
+		#if DBG_VERBOSE >= 2
+		std::cout << "Operation #" << std::setw(6) << std::setfill(' ') << std::dec << cnt;
+		std::cout << "   x" << std::hex << std::setw(6) << std::setfill('0') << addrf;
+		std::cout << " > x" << std::hex << std::setw(6) << std::setfill('0') << addrt;
+		std::cout << "    SZ( " << std::dec << blksz << " )\n";
 		#endif
-
-		if( cnt == 256 ) {
-			asm("nop"); }
 
 		memcpy( pdst , psrc, blksz ); }
 
@@ -92,7 +82,9 @@ int runproc( std::string infile, int start_offset , Config & cfg, std::string ou
 		std::cout << "invalid source file : " << infile << "\n";
 		return appErr_ReadSourceFileIO; }
 
+	#if DBG_VERBOSE >= 2
 	std::cout << "source file size : " << scrbuff.size()  << "\n";
+	#endif
 
 	// Clone
 	dstbuff = scrbuff.clone();
@@ -137,10 +129,12 @@ int main ( int argc, char * argv[] ) {
 	if( ! fileExists ( cfgfile ) ) {
 		return appErr_ConfigFileMissed; }
 
+	#if DBG_VERBOSE > 0
 	std::cout << "Input  : "	<< infile	<< "\n";
 	std::cout << "Offset : "	<< inoffs	<< "\n";
 	std::cout << "Config : "	<< cfgfile	<< "\n";
 	std::cout << "Output : "	<< outfile	<< "\n";
+	#endif
 
 	// Load transformation parameters
 	Config cfg;
@@ -148,12 +142,16 @@ int main ( int argc, char * argv[] ) {
 	if ( ! cfg.load( cfgfile.c_str() ) ) {
 		return appErr_YAMLParserError; }
 
+	#if DBG_VERBOSE > 0
 	std::cout << "SRC channels: "	<< cfg.transform.src.size() << "\n";
 	std::cout << "DST channels: "	<< cfg.transform.dst.size() << "\n";
+	#endif
 
 	int r = runproc( infile , inoffs , cfg , outfile );
 
+	#if DBG_VERBOSE > 0
 	if( r > 0 ) { std::cout << "Error code : "	<< r << "\n"; }
 	else 		{ std::cout << "Transformation completed" << "\n"; }
+	#endif
 
 	return r; }

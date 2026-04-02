@@ -13,12 +13,12 @@ echo "=== Шаг 3: компрессия ==="
 ./compress.sh
 
 echo "=== Шаг 4: отчёт ==="
-./report.sh   # формирует results.txt
+./report.sh
 
 echo "=== Шаг 5: проверка ==="
 ./check.sh
 
 echo "=== Шаг 6: отчёт по check ==="
-./report_check.sh   # формирует results2.txt
+./report_check.sh
 
 echo "=== Все шаги выполнены успешно ==="

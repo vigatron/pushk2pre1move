@@ -15,7 +15,7 @@ cd results || { echo "Не удалось перейти в каталог resul
 mkdir -p ../../check
 
 echo "Запуск дополнительной проверки файлов (a/b)..."
-for i in {1..8}; do
+for i in {1..10}; do
     cd "example$i" || continue
 
     # Копируем только базовые файлы (без 'a'/'b' в имени)

@@ -22,7 +22,7 @@ else
 fi
 
 # Создаём подпапки и копируем исходные файлы
-for i in {1..8}; do
+for i in {1..10}; do
     mkdir -p "results/example$i"
     if [ -f "example$i.scr" ]; then
         cp "example$i.scr" "results/example$i/"
