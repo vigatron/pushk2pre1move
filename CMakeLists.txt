@@ -15,5 +15,5 @@ add_compile_definitions(DBG_VERBOSE=0)
 
 add_executable(${PROJECT_NAME} ${source_list_mods} )
 
-install(TARGETS ${PROJECT_NAME}
-        RUNTIME DESTINATION "$ENV{HOME}/bin")
+# install(TARGETS ${PROJECT_NAME}
+#         RUNTIME DESTINATION "$ENV{HOME}/bin")
