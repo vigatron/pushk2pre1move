@@ -5,7 +5,7 @@
 
 cd results || { echo "Не удалось перейти в каталог results"; exit 1; }
 
-for i in {1..8}; do
+for i in {1..10}; do
     echo "Архивация файлов в results/example$i"
     cd "example$i" || continue
     for f in *; do

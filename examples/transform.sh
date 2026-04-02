@@ -18,6 +18,8 @@ commands=(
   "example6/example6.scr 0 $CFG_DIR/zx_filter_a.yaml example6/example6a.scr"
   "example7/example7.bin 0 $CFG_DIR/cl_filter_a.yaml example7/example7a.bin"
   "example8/example8.bin 0 $CFG_DIR/cl_filter_a.yaml example8/example8a.bin"
+  "example9/example9.bin 0 $CFG_DIR/cl_filter_a.yaml example9/example9a.bin"
+  "example10/example10.bin 0 $CFG_DIR/cl_filter_a.yaml example10/example10a.bin"
 
   "example1/example1.scr 0 $CFG_DIR/zx_filter_b.yaml example1/example1b.scr"
   "example2/example2.scr 0 $CFG_DIR/zx_filter_b.yaml example2/example2b.scr"
@@ -27,6 +29,9 @@ commands=(
   "example6/example6.scr 0 $CFG_DIR/zx_filter_b.yaml example6/example6b.scr"
   "example7/example7.bin 0 $CFG_DIR/cl_filter_b.yaml example7/example7b.bin"
   "example8/example8.bin 0 $CFG_DIR/cl_filter_b.yaml example8/example8b.bin"
+  "example9/example9.bin 0 $CFG_DIR/cl_filter_b.yaml example9/example9b.bin"
+  "example10/example10.bin 0 $CFG_DIR/cl_filter_b.yaml example10/example10b.bin"
+
 )
 
 # Цикл по массиву
