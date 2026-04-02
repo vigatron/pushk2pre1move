@@ -47,18 +47,23 @@ This pre-filter is designed to rearrange data blocks in a deterministic manner t
 ---
 
 ## Visual Samples
-
+Platform : ZX Spectrum video memory dump
 
 | <img src="docs/example1.png" width="400"><br>`example1.scr`<br>HEWSON    | <img src="docs/example2.png" width="400"><br>`example2.scr`<br>Jarlaxe    | <img src="docs/example3.png" width="400"><br>`example3.scr`<br>Manu       |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | <img src="docs/example4.png" width="400"><br>`example4.scr`<br>moroz1999 | <img src="docs/example5.png" width="400"><br>`example5.scr`<br>Rado Javor | <img src="docs/example6.png" width="400"><br>`example6.scr`<br>mr r0ckers |
 
+<br>
 
+### Hardware optimized Tiles 
+Platform : MCU + FPGA ( STM32F407 + XC6SLX9 ) Video RAM dump
 
-| Preview                                   | File           | Author     |
-| ----------------------------------------- | -------------- | ---------- |
-| <img src="docs/example7.png" width="600"> | `example7.bin` | V01G04A81  |
-| <img src="docs/example8.png" width="600"> | `example8.bin` | V01G04A81  |
+| Preview                                     | File            | Author     |
+| ------------------------------------------- | --------------- | ---------- |
+| <img src="docs/example7.png" width="600">   | `example7.bin`  | V01G04A81  |
+| <img src="docs/example8.png" width="600">   | `example8.bin`  | V01G04A81  |
+| <img src="docs/example9.png" width="600">   | `example9.bin`  | V01G04A81  |
+| <img src="docs/example10.png" width="600">  | `example10.bin` | V01G04A81  |
 
 ---
 #### Test Files
@@ -69,9 +74,10 @@ This pre-filter is designed to rearrange data blocks in a deterministic manner t
 	example4.scr		moroz1999 - Crystal Kingdom Dizzy in-game 01 (2017).scr
 	example5.scr		Rado Javor - ZX602 (1994).scr
 	example6.scr		mr r0ckers - Blue Surf (2015) (Chaos Constructions 2015, 1).scr
-	screen7.scr 		V01G04A81 Exoloneur Test Cells
-	screen8.scr 		V01G04A81 Custom Font 8x8
-
+	example7.bin 		V01G04A81 Exoloneur Test Cells
+	example8.bin 		V01G04A81 Custom Font 8x8
+	example9.bin		V01G04A81 One more example 9
+	example10.bin		V01G04A81 One more example 10
 
 ---
 
@@ -97,8 +103,8 @@ This pre-filter is designed to rearrange data blocks in a deterministic manner t
 | example6.scr (6912)       | 1981 / 1911 / 1841 | 2028 / 1956 / 1888 | 2108 / 2033 / 1962 | 2117 / 2048 / 2022 | 2099 / 2050 / 1990 | 2253 / 2272 / 2192 | 2242 / 2194 / 2134 | 2224 / 2165 / 2113 |
 | example7.bin (16384)      | 1803 / 1852 / 1723 | 1848 / 1900 / 1768 | 1561 / 1923 / 1828 | 2329 / 2304 / 2784 | 3203 / 3133 / 2764 | 3688 / 3704 / 3381 | 3346 / 3277 / 2908 | 3415 / 3336 / 2939 |
 | example8.bin (16384)      | 1688 / 1730 / 1579 | 1736 / 1776 / 1624 | 1780 / 1814 / 1682 | 1914 / 1948 / 1766 | 1953 / 1995 / 1866 | 1949 / 1957 / 1789 | 2096 / 2139 / 2010 | 2078 / 2115 / 2059 |
-
-
+| example9.bin (16384) | 1314 / 1311 / 1229 | 1360 / 1356 / 1276 | 1435 / 1400 / 1347 | 1492 / 1479 / 1384 | 1670 / 1626 / 1441 | 1715 / 1724 / 1673 | 1813 / 1770 / 1584 | 1850 / 1790 / 1570 |
+| example10.bin (16384) | 1210 / 1187 / 1370 | 1256 / 1232 / 1416 | 1349 / 1311 / 1474 | 1421 / 1395 / 1546 | 1558 / 1498 / 1572 | 1664 / 1656 / 1619 | 1702 / 1643 / 1717 | 1716 / 1657 / 1660 |
 
 <br>
 
@@ -169,11 +175,17 @@ transform:
 
 ##### Папка *results* результатов  
 
-example1 - example8 : compressed files  
-
+example1 - example10 : compressed files  
 <br>
 
 ##### Папка 'check' - проверка обратной трансформации ( MD5 )
+
+example1 - example10 : restored files  
+<br>
+
+#### Compare all files content with md5sum tool ( MD5 )  
+
+<br>
 
 | Базовый файл (размер)     | Вариант A (ar)                          | Вариант B (br)                          | Основной файл (scr/bin)                 |
 |---------------------------|-----------------------------------------|-----------------------------------------|-----------------------------------------|
@@ -185,8 +197,12 @@ example1 - example8 : compressed files
 | example6.scr (6912)       | 9dd68048dc15525af9acfa6883398ddb        | 9dd68048dc15525af9acfa6883398ddb        | 9dd68048dc15525af9acfa6883398ddb        |
 | example7.bin (16384)      | 66d2c7887b401109f466de65cf83c4f5        | 66d2c7887b401109f466de65cf83c4f5        | 66d2c7887b401109f466de65cf83c4f5        |
 | example8.bin (16384)      | dca17a92e634a3c93a458f37ea6629bb        | dca17a92e634a3c93a458f37ea6629bb        | dca17a92e634a3c93a458f37ea6629bb        |
+| example9.bin (16384)      | af09d0550b794b051fb0ce2f316793cc        | af09d0550b794b051fb0ce2f316793cc        | af09d0550b794b051fb0ce2f316793cc        |
+| example10.bin (16384)     | a7637f24d09cd964b39703bd2c9bc341        | a7637f24d09cd964b39703bd2c9bc341        | a7637f24d09cd964b39703bd2c9bc341        |
 
-Все трансформации обратимы !
+  
+  
+> *Все трансформации обратимы !*
 
 ---
 
