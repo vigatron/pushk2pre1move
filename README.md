@@ -1,9 +1,14 @@
 
--------------------------------------------
-PRE-FILTER-1    BLOCKMOVE
--------------------------------------------
+# PUSHK Archiver: representation-first compression filter `move`
 
-Author : V01G04A81 Viktor Glebov
+
+[![C++](https://img.shields.io/badge/C%2B%2B-17-blue.svg)](https://isocpp.org/)
+[![CMake](https://img.shields.io/badge/CMake-3.16+-green.svg)](https://cmake.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+**Filter name** `pushk2pre1move`  
+
+Author : V01G04A81 Viktor Glebov  
 
 ***Block Move / Transform***
 
