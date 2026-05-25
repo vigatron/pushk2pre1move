@@ -44,7 +44,7 @@ bool Transform( BinaryBuffer & scrbuff , int start_offset , Config & cfg , Binar
 
 	uint32_t vini = cfg.counter.init;
 	uint32_t vlim = vini + cfg.counter.volume;
-	uint16_t blksz = cfg.counter.unit_size;
+	uint16_t blksz = cfg.counter.unitsz;
 
 	for( int cnt = vini; cnt < vlim ; cnt += cfg.counter.step ) {
 
@@ -123,26 +123,26 @@ int main ( int argc, char * argv[] ) {
 
 	// Check Source file
 	if( ! fileExists ( infile ) ) {
+        std::cerr << "Отсутствует входной файл: " << infile << '\n';
 		return appErr_SourceFileMissed; }
 
 	// Check Config File
 	if( ! fileExists ( cfgfile ) ) {
+        std::cerr << "Отсутствует конфигурационный файл: " << cfgfile << '\n';
 		return appErr_ConfigFileMissed; }
+
+	// Load transformation parameters
+	Config cfg;
+
+	if ( ! cfg.load( cfgfile.c_str() ) ) {
+        std::cerr << "Ошибка параметров конфигурационного файла: " << cfgfile << '\n';
+        return appErr_YAMLParserError; }
 
 	#if DBG_VERBOSE > 0
 	std::cout << "Input  : "	<< infile	<< "\n";
 	std::cout << "Offset : "	<< inoffs	<< "\n";
 	std::cout << "Config : "	<< cfgfile	<< "\n";
 	std::cout << "Output : "	<< outfile	<< "\n";
-	#endif
-
-	// Load transformation parameters
-	Config cfg;
-
-	if ( ! cfg.load( cfgfile.c_str() ) ) {
-		return appErr_YAMLParserError; }
-
-	#if DBG_VERBOSE > 0
 	std::cout << "SRC channels: "	<< cfg.transform.src.size() << "\n";
 	std::cout << "DST channels: "	<< cfg.transform.dst.size() << "\n";
 	#endif

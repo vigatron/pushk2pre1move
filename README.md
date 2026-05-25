@@ -146,9 +146,9 @@ Platform : MCU + FPGA ( STM32F407 + XC6SLX9 ) Video RAM dump
 
 
 ---
-Transformation array configuration example ( YAML file format )
+Transformation array configuration example 
 
-Example:
+Example ( YAML file format )
 
 ``` YAML
 
@@ -156,7 +156,7 @@ counter:
   init: 0
   step: 1
   volume: 192
-  unit_size: 32
+  unitsz: 32
 
 transform:
   src:
@@ -173,6 +173,7 @@ transform:
 
 ```
 
+* Note: `unit_size` or `unitsz` - both accepted
 
 ---
 
@@ -320,3 +321,24 @@ examples_trix folder content :
 | trix36.scr | Trixs - Way home (2023).scr |
 | trix37.scr | Trixs - ZX Cyber (2009) (Raww.orgy 2009, 1).scr |
 
+---
+#### Build application
+
+```
+cmake -S . -B build
+cmake --build build
+```
+
+#### Install with default system prefix `/usr/local`
+
+```
+cmake --build build --target install
+```
+
+#### Local Install `$HOME/bin`
+
+```
+cmake --build build --target localinstall
+```
+
+V01G04A81 2026
