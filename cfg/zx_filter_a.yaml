@@ -12,7 +12,6 @@ transform:
       scaler: 32
     - format: 3
       scaler: 256
-
   dst:
     - format: 8
       scaler: 32

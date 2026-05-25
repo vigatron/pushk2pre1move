@@ -10,7 +10,6 @@ transform:
       scaler: 1024
     - format: 3
       scaler: 2048
-
   dst:
     - format: 4
       scaler: 1024

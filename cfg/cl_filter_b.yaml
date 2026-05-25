@@ -10,7 +10,6 @@ transform:
       scaler: 8
     - format: 3
       scaler: 2048
-
   dst:
     - format: 11
       scaler: 8
