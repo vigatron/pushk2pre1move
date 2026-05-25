@@ -8,7 +8,8 @@ from originalfiles import FILTERS_DIR
 from originalfiles import EXAMPLES_DIR
 from originalfiles import RESULTS_DIR
 
-from sysfuncs import SelectFilterAO, SelectFilterAR, SelectFilterBO, SelectFilterBR
+from origfilters import SelectFilterAO, SelectFilterAR, SelectFilterBO, SelectFilterBR
+
 from sysfuncs import transform_file, check_file_md5
 
 

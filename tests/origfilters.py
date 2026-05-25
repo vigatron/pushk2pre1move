@@ -1,0 +1,36 @@
+
+FLTZAT = 1
+FLTZBT = 2
+FLTCAT = 3
+FLTCBT = 4
+
+FLTZAR = 5
+FLTZBR = 6
+FLTCAR = 7
+FLTCBR = 8
+
+
+FLTFILES  = [
+
+    ["zx_filter_a.yaml"  , "Y291bnRlcjoKICBpbml0OiAwCiAgc3RlcDogMQogIHZvbHVtZTogMTkyCiAgdW5pdHN6OiAzMgoKdHJhbnNmb3JtOgogIHNyYzoKICAgIC0gZm9ybWF0OiAyCiAgICAgIHNjYWxlcjogMjA0OAogICAgLSBmb3JtYXQ6IDMKICAgICAgc2NhbGVyOiAzMgogICAgLSBmb3JtYXQ6IDMKICAgICAgc2NhbGVyOiAyNTYKICBkc3Q6CiAgICAtIGZvcm1hdDogOAogICAgICBzY2FsZXI6IDMy" ],
+    ["zx_filter_b.yaml"  , "Y291bnRlcjoKICBpbml0OiAwCiAgc3RlcDogMQogIHZvbHVtZTogNjE0NAogIHVuaXRzejogMQoKdHJhbnNmb3JtOgogIHNyYzoKICAgIC0gZm9ybWF0OiAyCiAgICAgIHNjYWxlcjogMjA0OAogICAgLSBmb3JtYXQ6IDMKICAgICAgc2NhbGVyOiAzMgogICAgLSBmb3JtYXQ6IDUKICAgICAgc2NhbGVyOiAxCiAgICAtIGZvcm1hdDogMwogICAgICBzY2FsZXI6IDI1NgogIGRzdDoKICAgIC0gZm9ybWF0OiAxNAogICAgICBzY2FsZXI6IDE=" ],
+    ["cl_filter_a.yaml"  , "Y291bnRlcjoKICBpbml0OiAwCiAgc3RlcDogMQogIHZvbHVtZTogMTYKICB1bml0c3o6IDEwMjQKCnRyYW5zZm9ybToKICBzcmM6CiAgICAtIGZvcm1hdDogMQogICAgICBzY2FsZXI6IDEwMjQKICAgIC0gZm9ybWF0OiAzCiAgICAgIHNjYWxlcjogMjA0OAogIGRzdDoKICAgIC0gZm9ybWF0OiA0CiAgICAgIHNjYWxlcjogMTAyNA==" ],
+    ["cl_filter_b.yaml"  , "Y291bnRlcjoKICBpbml0OiAwCiAgc3RlcDogMQogIHZvbHVtZTogMjA0OAogIHVuaXRzejogOAoKdHJhbnNmb3JtOgogIHNyYzoKICAgIC0gZm9ybWF0OiA4CiAgICAgIHNjYWxlcjogOAogICAgLSBmb3JtYXQ6IDMKICAgICAgc2NhbGVyOiAyMDQ4CiAgZHN0OgogICAgLSBmb3JtYXQ6IDExCiAgICAgIHNjYWxlcjogOA==" ],
+
+    ["zx_filter_ar.yaml" , "Y291bnRlcjoKICBpbml0OiAwCiAgc3RlcDogMQogIHZvbHVtZTogMTkyCiAgdW5pdHN6OiAzMgoKdHJhbnNmb3JtOgogIHNyYzoKICAgIC0gZm9ybWF0OiA4CiAgICAgIHNjYWxlcjogMzIKICBkc3Q6CiAgICAtIGZvcm1hdDogMgogICAgICBzY2FsZXI6IDIwNDgKICAgIC0gZm9ybWF0OiAzCiAgICAgIHNjYWxlcjogMzIKICAgIC0gZm9ybWF0OiAzCiAgICAgIHNjYWxlcjogMjU2"],
+    ["zx_filter_br.yaml" , "Y291bnRlcjoKICBpbml0OiAwCiAgc3RlcDogMQogIHZvbHVtZTogNjE0NAogIHVuaXRzejogMQoKdHJhbnNmb3JtOgogIHNyYzoKICAgIC0gZm9ybWF0OiAxNAogICAgICBzY2FsZXI6IDEKICBkc3Q6CiAgICAtIGZvcm1hdDogMgogICAgICBzY2FsZXI6IDIwNDgKICAgIC0gZm9ybWF0OiAzCiAgICAgIHNjYWxlcjogMzIKICAgIC0gZm9ybWF0OiA1CiAgICAgIHNjYWxlcjogMQogICAgLSBmb3JtYXQ6IDMKICAgICAgc2NhbGVyOiAyNTY="],
+    ["cl_filter_ar.yaml" , "Y291bnRlcjoKICBpbml0OiAwCiAgc3RlcDogMQogIHZvbHVtZTogMTYKICB1bml0c3o6IDEwMjQKCnRyYW5zZm9ybToKICBzcmM6CiAgICAtIGZvcm1hdDogNAogICAgICBzY2FsZXI6IDEwMjQKICBkc3Q6CiAgICAtIGZvcm1hdDogMQogICAgICBzY2FsZXI6IDEwMjQKICAgIC0gZm9ybWF0OiAzCiAgICAgIHNjYWxlcjogMjA0OA=="],
+    ["cl_filter_br.yaml" , "Y291bnRlcjoKICBpbml0OiAwCiAgc3RlcDogMQogIHZvbHVtZTogMjA0OAogIHVuaXRzejogOAoKdHJhbnNmb3JtOgogIHNyYzoKICAgIC0gZm9ybWF0OiAxMQogICAgICBzY2FsZXI6IDgKICBkc3Q6CiAgICAtIGZvcm1hdDogOAogICAgICBzY2FsZXI6IDgKICAgIC0gZm9ybWF0OiAzCiAgICAgIHNjYWxlcjogMjA0OA=="]
+]
+
+def SelectFilterAO(fname):
+    return "zx_filter_a.yaml" if fname.endswith(".scr") else "cl_filter_a.yaml"
+
+def SelectFilterAR(fname):
+    return "zx_filter_ar.yaml" if fname.endswith(".scr") else "cl_filter_ar.yaml"
+
+def SelectFilterBO(fname):
+    return "zx_filter_b.yaml" if fname.endswith(".scr") else "cl_filter_b.yaml"
+
+def SelectFilterBR(fname):
+    return "zx_filter_br.yaml" if fname.endswith(".scr") else "cl_filter_br.yaml"
