@@ -6,6 +6,7 @@ def calc_file_md5(fname):
     toolname = "md5sum"
     execresult = subprocess.run( [ toolname, fname ], capture_output=True, text=True )
     if execresult.returncode:
+        print( "cant execute tool " + toolname)
         return False
     return execresult.stdout.split()[0].strip()
 

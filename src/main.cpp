@@ -95,6 +95,7 @@ int runproc( std::string infile, int start_offset , Config & cfg, std::string ou
 
 	// Save results
 	if (!dstbuff.saveToFile( outfile )) {
+		std::cerr << "Ошибка записи результата: " << outfile << '\n';
 		return appErr_InvalidDestination; }
 
 	return appErr_AllOk; }
