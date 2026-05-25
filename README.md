@@ -9,6 +9,7 @@
 **Filter name** `pushk2pre1move`  
 
 Author : V01G04A81 Viktor Glebov  
+Source code : https://github.com/vigatron/pushk2pre1move
 
 ***Block Move / Transform***
 
@@ -40,9 +41,8 @@ This pre-filter is designed to rearrange data blocks in a deterministic manner t
    - `cl_filter_a`, `cl_filter_b` for examples 7–8  
 
 2. As a result, the following output directories were generated:  
-   - `results1` - `results8`  
-   - `results1a` - `results8a`  
-   - `results1b` - `results8b`  
+    - Transformation results folder `results/check` with `_a` / `_b` / `_ar` / `_br`
+    - Compression results folders `results/example1` - `results/example10`  with archived files
 
 3. All output data was compressed using a set of compressors:  
    `zip`, `arj`, `7zip`, `xz`, and others  
