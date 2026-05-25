@@ -2,7 +2,7 @@ counter:
   init: 0
   step: 1
   volume: 6144
-  unit_size: 1
+  unitsz: 1
 
 transform:
   src:

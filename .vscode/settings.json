@@ -1,4 +1,5 @@
 {
+    "cmake.buildBeforeRun": true,
 	"cmake.debugConfig": {
 		"args": [
 			// "examples/example1.scr", "0", "cfg/zx_filter_a.yaml", "examples/results/example1a.scr"
@@ -13,10 +14,7 @@
 			// "examples/results/example7a.bin", "0", "cfg/clfilterar.yaml", "examples/check/example7ar.bin"
 			// "examples/example7.bin", "0", "cfg/clfilterb.yaml", "examples/results/example7b.bin"
 			//
-			"../examples/example10.bin",
-			"0",
-			"../cfg/cl_filter_b.yaml",
-			"../examples/results/example10b.bin"
+			"../examples/example10.bin", "0", "../cfg/cl_filter_b.yaml", "../examples/results/example10b.bin"
 			//
 			// "examples/results/example7b.bin", "0", "cfg/clfilterbr.yaml", "examples/check/example7br.bin"
 		]

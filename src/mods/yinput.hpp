@@ -21,7 +21,7 @@ public:
         uint32_t init = 0;
         uint32_t step = 0;
         uint32_t volume = 0;
-        uint32_t unit_size = 0;
+        uint32_t unitsz = 0;
     };
 
     struct Transform {
@@ -91,22 +91,10 @@ public:
                 {
                     currentChannel = nullptr;
 
-                    if (eq(line, "counter:")) {
-                        section = COUNTER;
-                        currentList = nullptr;
-                    }
-                    else if (eq(line, "transform:")) {
-                        section = TRANSFORM;
-                        currentList = nullptr;
-                    }
-                    else if (eq(line, "src:")) {
-                        if (section == TRANSFORM)
-                            currentList = &transform.src;
-                    }
-                    else if (eq(line, "dst:")) {
-                        if (section == TRANSFORM)
-                            currentList = &transform.dst;
-                    }
+                    if (eq(line, "counter:"))           { section = COUNTER; currentList = nullptr; }
+                    else if (eq(line, "transform:"))    { section = TRANSFORM; currentList = nullptr; }
+                    else if (eq(line, "src:"))          { if (section == TRANSFORM) currentList = &transform.src; }
+                    else if (eq(line, "dst:"))          { if (section == TRANSFORM) currentList = &transform.dst; }
 
                     continue;
                 }
@@ -132,8 +120,8 @@ public:
 
 private:
 
-    void loadFile(const char* filename)
-    {
+    void loadFile(const char* filename) {
+
         std::ifstream f(filename, std::ios::binary);
         if (!f) throw std::runtime_error("file open failed");
 
@@ -146,43 +134,36 @@ private:
         buffer[sz] = 0;
     }
 
-    static void trimLeft(char*& s)
-    {
+    static void trimLeft(char*& s) {
         while (*s == ' ' || *s == '\t') s++;
     }
 
-    static bool startsWith(const char* s, const char* pref)
-    {
-        return strncmp(s, pref, strlen(pref)) == 0;
+    static bool startsWith(const char* s, const char* pref, int *plen=nullptr) {
+        bool m = strncmp(s, pref, strlen(pref)) == 0;
+        if(m && plen) { *plen = strlen(pref); }
+        return m;
     }
 
-    static bool endsWith(const char* s, const char* suffix)
-    {
+    static bool endsWith(const char* s, const char* suffix) {
         size_t ls = strlen(s);
         size_t lf = strlen(suffix);
         if (ls < lf) return false;
         return strcmp(s + ls - lf, suffix) == 0;
     }
 
-    static bool eq(const char* a, const char* b)
-    {
+    static bool eq(const char* a, const char* b) {
         return strcmp(a, b) == 0;
     }
 
-    static uint32_t parseInt(const char* s)
-    {
+    static uint32_t parseInt(const char* s) {
         while (*s == ' ') s++;
-
         uint32_t v = 0;
-        while (*s >= '0' && *s <= '9') {
-            v = v * 10 + (*s - '0');
-            s++;
-        }
+        while (*s >= '0' && *s <= '9') { v = v * 10 + (*s - '0'); s++; }
         return v;
     }
 
-    bool parseChannelKV(char* line, Channel* ch)
-    {
+    bool parseChannelKV(char* line, Channel* ch) {
+
         if (startsWith(line, "format:")) {
             line += 7;
             ch->format = (uint8_t)parseInt(line);
@@ -196,48 +177,35 @@ private:
         return false;
     }
 
-    void parseGlobal(char* line, Section section)
-    {
-        if (section == COUNTER)
-        {
-            if (startsWith(line, "init:")) {
-                counter.init = parseInt(line + 5);
-            }
-            else if (startsWith(line, "step:")) {
-                counter.step = parseInt(line + 5);
-            }
-            else if (startsWith(line, "volume:")) {
-                counter.volume = parseInt(line + 7);
-            }
-            else if (startsWith(line, "unit_size:")) {
-                counter.unit_size = parseInt(line + 10);
-            }
+    void parseGlobal(char* line, Section section) {
+
+        int  dlen;
+        bool pfxInit        = startsWith(line, "init:", &dlen);
+        bool pfxStep        = startsWith(line, "step:", &dlen);
+        bool pfxVolume      = startsWith(line, "volume:", &dlen);
+        bool pfxUnitSize    = startsWith(line, "unit_size:", &dlen) || startsWith(line, "unitsz:", &dlen);
+
+        if (section == COUNTER) {
+            if (pfxInit)                { counter.init      = parseInt(line + dlen); }
+            else if (pfxStep)           { counter.step      = parseInt(line + dlen); }
+            else if (pfxVolume)         { counter.volume    = parseInt(line + dlen); }
+            else if (pfxUnitSize)       { counter.unitsz    = parseInt(line + dlen); }
         }
     }
 
-    bool validate()
-    {
-        if (transform.src.empty()) {
-            std::cerr << "Error: src empty\n";
-            return false;
-        }
+    bool validate() {
 
-        if (transform.dst.empty()) {
-            std::cerr << "Error: dst empty\n";
-            return false;
-        }
+        if (transform.src.empty()) { std::cerr << "Error: src empty\n"; return false; }
+        if (transform.dst.empty()) { std::cerr << "Error: dst empty\n"; return false; }
 
-        for (auto& c : transform.src)
-            if (!validateChannel(c)) return false;
+        for (auto& c : transform.src) if (!validateChannel(c)) return false;
+        for (auto& c : transform.dst) if (!validateChannel(c)) return false;
 
-        for (auto& c : transform.dst)
-            if (!validateChannel(c)) return false;
-
-        return true;
+        return counter.volume;
     }
 
-    static bool validateChannel(const Channel& c)
-    {
+    static bool validateChannel(const Channel& c) {
+
         if (c.format == 0) {
             std::cerr << "Error: format=0 invalid\n";
             return false;

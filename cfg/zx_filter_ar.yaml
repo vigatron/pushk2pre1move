@@ -2,7 +2,7 @@ counter:
   init: 0
   step: 1
   volume: 192
-  unit_size: 32
+  unitsz: 32
 
 transform:
   src:
