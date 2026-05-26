@@ -11,14 +11,6 @@
 
 
 // ----------------------------------------------------------------------------------
-int error(int errCode, std::string msg, std::string arg="") {
-    std::cerr << "Error " << errCode << ", " << msg;
-    if(!arg.empty()) { std::cerr << " " << arg; }
-    std::cerr << '\n';
-    return errCode;
-}
-
-// ----------------------------------------------------------------------------------
 bool fileExists(const std::string& path) {
     try {
         return std::filesystem::exists(path) &&
@@ -58,6 +50,8 @@ std::vector<uint8_t> base64_to_vector(const std::string& input) {
             bits -= 8;
         }
     }
+
+    output.push_back(0);
 
     return output;
 }
@@ -139,9 +133,10 @@ int runproc( std::string infile, int start_offset , Config & cfg, std::string ou
     return appErr_AllOk; }
 
 // ----------------------------------------------------------------------------------
-int main ( int argc, char * argv[] ) {
+int main(int argc, char * argv[]) {
 
-    if(argc != 5 ) { return appErr_NotEnoughArgs; }
+    if(argc != 5 ) {
+        return error(appErr_NotEnoughArgs, "Недостаточное количество входных параметров" ); }
 
     // Разбор входных параметров
     std::string     infile	    = argv[1];
@@ -165,14 +160,21 @@ int main ( int argc, char * argv[] ) {
         }
 
         // Load transformation parameters
-        if (!cfg.load( cfgparam.c_str())) {
+        if (!cfg.InitFromFile(cfgparam.c_str())) {
             return error(appErr_YAMLParserError, "Ошибка параметров конфигурационного файла: ", cfgparam);
         }
 
     } else {
+
         auto decoded = base64_to_vector(cfgparam);
-        std::cout << decoded.data() << std::endl;
-        return error(appErr_Unsupported, "BASE64 in develop");
+        if(decoded.empty()) {
+            return error(appErr_Base64Decode, "BASE64 conversion issue");
+        }
+
+        const char* cstr = reinterpret_cast<const char*>(decoded.data());
+        if(!cfg.InitFromText(cstr)) {
+            return error(appErr_Unsupported, "Ошибка параметров конфигурации BASE64");
+        }
     }
 
     #if DBG_VERBOSE > 0

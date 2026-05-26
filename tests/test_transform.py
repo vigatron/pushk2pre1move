@@ -21,6 +21,8 @@ class Transform(unittest.TestCase):
 
     def proc_transform(self, mode : int):
 
+        print(f"Transform() mode={mode}")
+
         for item in ORIGFILES:
 
             basefile   = item[0]
@@ -81,8 +83,8 @@ class Transform(unittest.TestCase):
 
 
     def test_transform(self):
-        self.proc_transform(1)  # yaml
-        self.proc_transform(0)  # base64
+        self.proc_transform(0)  # yaml
+        self.proc_transform(1)  # base64
 
 
 

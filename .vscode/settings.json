@@ -16,7 +16,8 @@
             //
             "../examples/example10.bin",
             "0",
-            "../cfg/cl_filter_b.yaml",
+            // "../cfg/cl_filter_b.yaml",
+            "Y291bnRlcjoKICBpbml0OiAwCiAgc3RlcDogMQogIHZvbHVtZTogMTYKICB1bml0c3o6IDEwMjQKCnRyYW5zZm9ybToKICBzcmM6CiAgICAtIGZvcm1hdDogMQogICAgICBzY2FsZXI6IDEwMjQKICAgIC0gZm9ybWF0OiAzCiAgICAgIHNjYWxlcjogMjA0OAogIGRzdDoKICAgIC0gZm9ybWF0OiA0CiAgICAgIHNjYWxlcjogMTAyNA",
             "../results/example10b.bin"
             //
             // "examples/results/example7b.bin", "0", "cfg/clfilterbr.yaml", "examples/check/example7br.bin"
