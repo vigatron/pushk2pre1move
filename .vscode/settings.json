@@ -24,5 +24,12 @@
             //
             // "examples/results/example7b.bin", "0", "cfg/clfilterbr.yaml", "examples/check/example7br.bin"
         ]
-    }
+    },
+    "python-envs.pythonProjects": [
+        {
+            "path": "vhpytools/marksources.py",
+            "envManager": "ms-python.python:venv",
+            "packageManager": "ms-python.python:pip"
+        }
+    ]
 }
