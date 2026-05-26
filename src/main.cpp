@@ -4,12 +4,6 @@
 #include "cntblkmv.hpp"
 #include "allerrs.hpp"
 
-// Values : 0 - 2
-#ifndef DBG_VERBOSE
-#define DBG_VERBOSE 0
-#endif
-
-
 // ----------------------------------------------------------------------------------
 bool fileExists(const std::string& path) {
     try {
@@ -135,8 +129,14 @@ int runproc( std::string infile, int start_offset , Config & cfg, std::string ou
 // ----------------------------------------------------------------------------------
 int main(int argc, char * argv[]) {
 
+    if (argc > 1 && std::string(argv[1]) == "--version") {
+        std::cout << "pushk2pre1move version " << APP_VERSION << " (C) 2026 V01G04A81" << std::endl;
+        return 0;
+    }
+    
     if(argc != 5 ) {
-        return error(appErr_NotEnoughArgs, "Недостаточное количество входных параметров" ); }
+        return error(appErr_NotEnoughArgs, "Недостаточное количество входных параметров" );
+    }
 
     // Разбор входных параметров
     std::string     infile	    = argv[1];

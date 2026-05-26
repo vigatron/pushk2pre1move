@@ -15,4 +15,5 @@ enum appErrs {
     appErr_Unsupported
 };
 
-int error(int errCode, std::string msg, std::string arg="");
+int error(int errCode, std::string msg);
+int error(int errCode, std::string msg, std::string arg);

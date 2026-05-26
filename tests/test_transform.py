@@ -7,7 +7,7 @@ from origpaths import FILTERS_DIR
 from origpaths import EXAMPLES_DIR
 from origpaths import RESULTS_DIR
 
-from originalfiles import ORIGFILES
+from originalfiles import ORIGFILES, TOOLNAME
 from origfilters import SelectFilterParam, GetRFilter
 from sysfuncs import transform_file, check_file_md5
 
@@ -18,6 +18,14 @@ def injectsym(fname, sym):
 
 
 class Transform(unittest.TestCase):
+
+
+    def test_ver(self):
+        execresult = subprocess.run( [ TOOLNAME, "--version" ], capture_output=True, text=True )
+        if not execresult.returncode:
+            print( "Version: " + execresult.stdout)
+        self.assertEqual(execresult.returncode, 0)
+
 
     def proc_transform(self, mode : int):
 
@@ -85,7 +93,6 @@ class Transform(unittest.TestCase):
     def test_transform(self):
         self.proc_transform(0)  # yaml
         self.proc_transform(1)  # base64
-
 
 
 if __name__ == "__main__":
