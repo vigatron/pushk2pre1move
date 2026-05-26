@@ -1,5 +1,7 @@
 {
     "cmake.buildBeforeRun": true,
+    "cmake.buildType": "Release",
+    "cmake.defaultBuildType": "Release",
     "cmake.debugConfig": {
         "args": [
             // "examples/example1.scr", "0", "cfg/zx_filter_a.yaml", "examples/results/example1a.scr"
