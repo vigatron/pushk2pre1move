@@ -8,10 +8,8 @@ transform:
   src:
     - format: 4
       scaler: 1024
-
   dst:
     - format: 1
       scaler: 1024
     - format: 3
       scaler: 2048
-

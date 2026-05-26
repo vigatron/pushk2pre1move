@@ -8,7 +8,6 @@ transform:
   src:
     - format: 11
       scaler: 8
-
   dst:
     - format: 8
       scaler: 8

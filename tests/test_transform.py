@@ -2,13 +2,13 @@ import unittest
 import os
 import subprocess
 
-from originalfiles import ORIGFILES
-from originalfiles import BUILD_DIR
-from originalfiles import FILTERS_DIR
-from originalfiles import EXAMPLES_DIR
-from originalfiles import RESULTS_DIR
+from origpaths import BUILD_DIR
+from origpaths import FILTERS_DIR
+from origpaths import EXAMPLES_DIR
+from origpaths import RESULTS_DIR
 
-from sysfuncs import SelectFilterAO, SelectFilterAR, SelectFilterBO, SelectFilterBR
+from originalfiles import ORIGFILES, TOOLNAME
+from origfilters import SelectFilterParam, GetRFilter
 from sysfuncs import transform_file, check_file_md5
 
 
@@ -19,8 +19,18 @@ def injectsym(fname, sym):
 
 class Transform(unittest.TestCase):
 
-    def test_transform(self):
-        
+
+    def test_ver(self):
+        execresult = subprocess.run( [ TOOLNAME, "--version" ], capture_output=True, text=True )
+        if not execresult.returncode:
+            print( "Version: " + execresult.stdout)
+        self.assertEqual(execresult.returncode, 0)
+
+
+    def proc_transform(self, mode : int):
+
+        print(f"Transform() mode={mode}")
+
         for item in ORIGFILES:
 
             basefile   = item[0]
@@ -29,10 +39,15 @@ class Transform(unittest.TestCase):
             basefilear = injectsym(basefilea, "r")
             basefilebr = injectsym(basefileb, "r")
 
-            fltfilea    = os.path.join(FILTERS_DIR, SelectFilterAO(basefile))
-            fltfilear   = os.path.join(FILTERS_DIR, SelectFilterAR(basefile))
-            fltfileb    = os.path.join(FILTERS_DIR, SelectFilterBO(basefile))
-            fltfilebr   = os.path.join(FILTERS_DIR, SelectFilterBR(basefile))
+            fltid_a  = item[2]
+            fltid_b  = item[4]
+            fltid_ar = GetRFilter(fltid_a)
+            fltid_br = GetRFilter(fltid_b)
+
+            flt_param_a    = SelectFilterParam(fltid_a, mode)
+            flt_param_b    = SelectFilterParam(fltid_b, mode)
+            flt_param_ar   = SelectFilterParam(fltid_ar, mode)
+            flt_param_br   = SelectFilterParam(fltid_br, mode)
 
             srcfile     = os.path.join(EXAMPLES_DIR,    basefile)
             dstfilea    = os.path.join(RESULTS_DIR,     basefilea)
@@ -51,28 +66,33 @@ class Transform(unittest.TestCase):
             self.assertEqual(r, True, "Source MD5 mismatch")
 
             # Filter A direct transform & check MD5
-            r = transform_file(srcfile, fltfilea, dstfilea)
+            r = transform_file(srcfile, flt_param_a, dstfilea)
             self.assertEqual(r, True)
             r = check_file_md5(dstfilea, md5a)
             self.assertEqual(r, True, "Transform A failed")
 
             # Filter A restore
-            r = transform_file(dstfilea, fltfilear, dstfilear)
+            r = transform_file(dstfilea, flt_param_ar, dstfilear)
             self.assertEqual(r, True)
             r = check_file_md5(dstfilear, md5o)
             self.assertEqual(r, True, "Restore A failed")
 
             # Filter B direct transform & check MD5
-            r = transform_file(srcfile, fltfileb, dstfileb)
+            r = transform_file(srcfile, flt_param_b, dstfileb)
             self.assertEqual(r, True)
             r = check_file_md5(dstfileb, md5b)
             self.assertEqual(r, True, "Transform B failed")
 
             # Filter B restore
-            r = transform_file(dstfileb, fltfilebr, dstfilebr)
+            r = transform_file(dstfileb, flt_param_br, dstfilebr)
             self.assertEqual(r, True)
             r = check_file_md5(dstfilebr, md5o)
             self.assertEqual(r, True, "Restore B failed")
+
+
+    def test_transform(self):
+        self.proc_transform(0)  # yaml
+        self.proc_transform(1)  # base64
 
 
 if __name__ == "__main__":

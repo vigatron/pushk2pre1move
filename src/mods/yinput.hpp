@@ -44,86 +44,92 @@ private:
 
 public:
 
-    bool load(const char* filename)
-    {
-        try {
-            loadFile(filename);
+    bool InitFromFile(const char* filename) {
+        if(!loadFile(filename)) return false;
+        return Parse();
+    }
 
-            char* p = buffer.data();
-            char* end = p + buffer.size();
+    bool InitFromText(const char* text) {
+        int tlen = strlen(text);
+        buffer.resize( tlen + 1);
+        memcpy(buffer.data(), text, tlen);
+        buffer[tlen] = 0;
+        return Parse();
+    }
 
-            Section section = NONE;
+    bool Parse() {
 
-            std::vector<Channel>* currentList = nullptr;
-            Channel* currentChannel = nullptr;
+        char* p = buffer.data();
+        char* end = p + buffer.size();
 
-            while (p < end)
-            {
-                char* line = p;
+        Section section = NONE;
 
-                while (p < end && *p != '\n') p++;
-                if (p < end) *p++ = 0;
+        std::vector<Channel>* currentList = nullptr;
+        Channel* currentChannel = nullptr;
 
+        while (p < end)
+        {
+            char* line = p;
+
+            while (p < end && *p != '\n') p++;
+            if (p < end) *p++ = 0;
+
+            trimLeft(line);
+            if (*line == 0 || *line == '#')
+                continue;
+
+            // ===== LIST ITEM =====
+            if (*line == '-') {
+                line++;
                 trimLeft(line);
-                if (*line == 0 || *line == '#')
-                    continue;
 
-                // ===== LIST ITEM =====
-                if (*line == '-')
-                {
-                    line++;
-                    trimLeft(line);
-
-                    if (!currentList) {
-                        std::cerr << "Error: List not selected\n";
-                        return false;
-                    }
-
-                    currentList->emplace_back();
-                    currentChannel = &currentList->back();
-
-                    parseChannelKV(line, currentChannel);
-                    continue;
+                if (!currentList) {
+                    std::cerr << "Error: List not selected\n";
+                    return false;
                 }
 
-                // ===== SECTION =====
-                if (endsWith(line, ":"))
-                {
-                    currentChannel = nullptr;
+                currentList->emplace_back();
+                currentChannel = &currentList->back();
 
-                    if (eq(line, "counter:"))           { section = COUNTER; currentList = nullptr; }
-                    else if (eq(line, "transform:"))    { section = TRANSFORM; currentList = nullptr; }
-                    else if (eq(line, "src:"))          { if (section == TRANSFORM) currentList = &transform.src; }
-                    else if (eq(line, "dst:"))          { if (section == TRANSFORM) currentList = &transform.dst; }
-
-                    continue;
-                }
-
-                // ===== CHANNEL FIELD =====
-                if (currentChannel)
-                {
-                    parseChannelKV(line, currentChannel);
-                    continue;
-                }
-
-                // ===== GLOBAL =====
-                parseGlobal(line, section);
+                parseChannelKV(line, currentChannel);
+                continue;
             }
 
-            return validate();
+            // ===== SECTION =====
+            if (endsWith(line, ":")) {
+                currentChannel = nullptr;
+                if (eq(line, "counter:"))           { section = COUNTER; currentList = nullptr; }
+                else if (eq(line, "transform:"))    { section = TRANSFORM; currentList = nullptr; }
+                else if (eq(line, "src:"))          { if (section == TRANSFORM) currentList = &transform.src; }
+                else if (eq(line, "dst:"))          { if (section == TRANSFORM) currentList = &transform.dst; }
+                continue;
+            }
+
+            // ===== CHANNEL FIELD =====
+            if (currentChannel) {
+                parseChannelKV(line, currentChannel);
+                continue;
+            }
+
+            // ===== GLOBAL =====
+            parseGlobal(line, section);
         }
-        catch (const std::exception& e) {
-            std::cerr << "Config load error: " << e.what() << std::endl;
-            return false;
-        }
+
+        return validate();
     }
+
+    // catch (const std::exception& e) {
+    //     std::cerr << "Config load error: " << e.what() << std::endl;
+    //     return false;
+    // }
+
 
 private:
 
-    void loadFile(const char* filename) {
+    bool loadFile(const char* filename) {
 
         std::ifstream f(filename, std::ios::binary);
-        if (!f) throw std::runtime_error("file open failed");
+        if (!f) return false;
 
         f.seekg(0, std::ios::end);
         size_t sz = f.tellg();
@@ -132,6 +138,8 @@ private:
         buffer.resize(sz + 1);
         f.read(buffer.data(), sz);
         buffer[sz] = 0;
+
+        return true;
     }
 
     static void trimLeft(char*& s) {
