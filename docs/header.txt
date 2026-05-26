@@ -1,0 +1,16 @@
+/*
+ * Application   : pushk2pre1move
+ * Description   : PUSHK Archiver: representation-first compression filter
+ * Revision      : 1.0.1
+ * Source        : https://github.com/vigatron/pushk2pre1move
+ * Disclaimer    : Provided "AS IS", without warranty.
+ * License       : MIT
+ * File          : ${fname}
+ * Content size  : ${cntsz}
+ * Date / Time   : ${fdatetime}
+ * MD5           : ${fmd5}
+ * Notes         : MD5 = file content without header/footer
+ * Encoding      : UTF-8
+ * Author        : Viktor Glebov / V01G04A81
+ * Copyright     : © 2025–2026 Viktor Glebov
+ */
