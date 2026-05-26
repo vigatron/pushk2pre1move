@@ -21,6 +21,9 @@ def check_file_md5(fname, srcmd5):
 def transform_file(srcfile, filter, dstfile):
     execresult = subprocess.run( [
         TOOLNAME, srcfile, "0", filter, dstfile ], capture_output=True, text=True )
-    r = not execresult.returncode 
-    print(f"трансформация файла {srcfile} ftl={filter} dst={dstfile}, результат: {r}")
+    r = not execresult.returncode
+    print(f"трансформация файла {srcfile} ftl={filter} dst={dstfile}, rcode: {execresult.returncode} результат: {r}")
+    if execresult.returncode:
+        print("STDOUT:", execresult.stdout)
+        print("STDERR:", execresult.stderr)
     return r

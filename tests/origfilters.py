@@ -1,13 +1,15 @@
+import os
+from origpaths import FILTERS_DIR
 
-FLTZAT = 1
-FLTZBT = 2
-FLTCAT = 3
-FLTCBT = 4
+FLT_ZX_A = 1
+FLT_ZX_B = 2
+FLT_CL_A = 3
+FLT_CL_B = 4
 
-FLTZAR = 5
-FLTZBR = 6
-FLTCAR = 7
-FLTCBR = 8
+FLT_ZX_AR = 5
+FLT_ZX_BR = 6
+FLT_CL_AR = 7
+FLT_CL_BR = 8
 
 
 FLTFILES  = [
@@ -23,14 +25,51 @@ FLTFILES  = [
     ["cl_filter_br.yaml" , "Y291bnRlcjoKICBpbml0OiAwCiAgc3RlcDogMQogIHZvbHVtZTogMjA0OAogIHVuaXRzejogOAoKdHJhbnNmb3JtOgogIHNyYzoKICAgIC0gZm9ybWF0OiAxMQogICAgICBzY2FsZXI6IDgKICBkc3Q6CiAgICAtIGZvcm1hdDogOAogICAgICBzY2FsZXI6IDgKICAgIC0gZm9ybWF0OiAzCiAgICAgIHNjYWxlcjogMjA0OA=="]
 ]
 
-def SelectFilterAO(fname):
-    return "zx_filter_a.yaml" if fname.endswith(".scr") else "cl_filter_a.yaml"
+def GetRFilter(fltid):
+    if fltid == FLT_ZX_A:
+          return FLT_ZX_AR
+    if fltid == FLT_ZX_B:
+          return FLT_ZX_BR
+    if fltid == FLT_CL_A:
+          return FLT_CL_AR
+    if fltid == FLT_CL_B:
+          return FLT_CL_BR
+    print("Invalid Filter")
+    exit(1)
 
-def SelectFilterAR(fname):
-    return "zx_filter_ar.yaml" if fname.endswith(".scr") else "cl_filter_ar.yaml"
 
-def SelectFilterBO(fname):
-    return "zx_filter_b.yaml" if fname.endswith(".scr") else "cl_filter_b.yaml"
+def GetFilterName(fltid):
 
-def SelectFilterBR(fname):
-    return "zx_filter_br.yaml" if fname.endswith(".scr") else "cl_filter_br.yaml"
+    if fltid == FLT_ZX_A:
+            return FLTFILES[0][0]
+    elif fltid == FLT_ZX_B:
+            return FLTFILES[1][0]
+    elif fltid == FLT_CL_A:
+            return FLTFILES[2][0]
+    elif fltid == FLT_CL_B:
+            return FLTFILES[3][0]
+    elif fltid == FLT_ZX_AR:
+            return FLTFILES[4][0]
+    elif fltid == FLT_ZX_BR:
+            return FLTFILES[5][0]
+    elif fltid == FLT_CL_AR:
+            return FLTFILES[6][0]
+    elif fltid == FLT_CL_BR:
+            return FLTFILES[7][0]
+
+    print("Invalid Filter")
+    exit(1)
+
+
+def SelectBase64(fname):
+    for item in FLTFILES:
+        if fname == item[0]:
+            return item[1]
+    return ""
+
+def SelectFilterParam(fltid, mode):
+    fltname = GetFilterName(fltid)
+    if mode == 1:
+        return SelectBase64(fltname)
+    r = os.path.join(FILTERS_DIR, fltname)
+    return r

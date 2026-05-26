@@ -10,5 +10,6 @@ enum appErrs {
 	appErr_ConfigFileMissed,		// Invalid configuration file
 	appErr_YAMLParserError,			// Parser error
 	appErr_InvalidDestination,		// Destination failed ( fname )
-	appErr_TransformationFailed		// Bounds Check failed
+	appErr_TransformationFailed,	// Bounds Check failed
+    appErr_Unsupported
 };
