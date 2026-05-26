@@ -1,6 +1,8 @@
+/* ========================[  END FILE CONTENT  ]======================== */
+
 /*
  * File             : ${fname}
- * File Size        : ${cntsz}
+ * Content size     : ${cntsz}
  * Date / Time      : ${fdatetime}
  * MD5              : ${fmd5}
  * Copyright        : © 2025–2026 Viktor Glebov
