@@ -1,3 +1,19 @@
+/* ==========================================================================
+ * Application   : pushk2pre1move
+ * Description   : PUSHK Archiver: representation-first compression filter
+ * Revision      : 1.0.1
+ * Source        : https://github.com/vigatron/pushk2pre1move
+ * Disclaimer    : Provided "AS IS", without warranty.
+ * License       : MIT
+ * File          : src/mods/yinput.hpp
+ * Content size  : 6112
+ * Date / Time   : 27-05-2026 21:53:56
+ * MD5           : ca0789239103924197b033996c1b3e55
+ * Notes         : MD5 = file content without header/footer
+ * Encoding      : UTF-8
+ * Author        : Viktor Glebov / V01G04A81
+ * Copyright     : © 2025–2026 Viktor Glebov
+ * ========================[ BEGIN FILE CONTENT ]============================ */
 #pragma once
 
 #include <vector>
@@ -232,3 +248,10 @@ private:
         return v && ((v & (v - 1)) == 0);
     }
 };
+/* ========================[  END FILE CONTENT  ]========================
+ * File             : src/mods/yinput.hpp
+ * Content size     : 6112
+ * Date / Time      : 27-05-2026 21:53:56
+ * MD5              : ca0789239103924197b033996c1b3e55
+ * Copyright        : © 2025–2026 Viktor Glebov
+ * ====================================================================== */

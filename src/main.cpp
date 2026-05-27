@@ -1,3 +1,19 @@
+/* ==========================================================================
+ * Application   : pushk2pre1move
+ * Description   : PUSHK Archiver: representation-first compression filter
+ * Revision      : 1.0.1
+ * Source        : https://github.com/vigatron/pushk2pre1move
+ * Disclaimer    : Provided "AS IS", without warranty.
+ * License       : MIT
+ * File          : src/main.cpp
+ * Content size  : 5275
+ * Date / Time   : 27-05-2026 21:53:56
+ * MD5           : 564898a1c29637b6410e2dbb201d8f08
+ * Notes         : MD5 = file content without header/footer
+ * Encoding      : UTF-8
+ * Author        : Viktor Glebov / V01G04A81
+ * Copyright     : © 2025–2026 Viktor Glebov
+ * ========================[ BEGIN FILE CONTENT ]============================ */
 
 #include "allerrs.hpp"
 #include "base64.hpp"
@@ -7,13 +23,14 @@
 #include "vhplatform.hpp"
 #include "yinput.hpp"
 
+#include <algorithm>
 #include <iomanip>
 #include <iostream>
 
 // ----------------------------------------------------------------------------------
 uint32_t
-glbaddr(const std::vector<Config::Channel>& chn, uint32_t cnt)
-{
+glbaddr(const std::vector<Config::Channel> &chn, uint32_t cnt) {
+
     uint32_t r = 0;
     std::vector<int> offsets(chn.size());
 
@@ -33,25 +50,33 @@ glbaddr(const std::vector<Config::Channel>& chn, uint32_t cnt)
 }
 
 // ----------------------------------------------------------------------------------
-bool transform(BinaryBuffer& scrbuff,
-    int offs,
-    const Config& cfg,
-    BinaryBuffer& dstbuff)
-{
+bool transform(BinaryBuffer &scrbuff,
+               int offs,
+               const Config &cfg,
+               BinaryBuffer &dstbuff) {
+
     const uint32_t vini = cfg.counter.init;
     const uint32_t vlim = vini + cfg.counter.volume;
     const uint16_t blksz = cfg.counter.unitsz;
 
     for (uint32_t cnt = vini; cnt < vlim; cnt += cfg.counter.step) {
+
         const uint32_t addrf = offs + glbaddr(cfg.transform.src, cnt);
         const uint32_t addrt = offs + glbaddr(cfg.transform.dst, cnt);
 
         // Bounds check
-        if ((addrf > (scrbuff.size() - blksz)) || (addrt > (dstbuff.size() - blksz)))
+
+        if (blksz >= scrbuff.size() || blksz >= dstbuff.size())
             return false;
 
-        uint8_t* psrc = scrbuff.raw() + addrf;
-        uint8_t* pdst = dstbuff.raw() + addrt;
+        size_t srcavail = scrbuff.size() - blksz;
+        size_t dstavail = dstbuff.size() - blksz;
+
+        if (addrf > srcavail || addrt > dstavail)
+            return false;
+
+        uint8_t *psrc = scrbuff.raw() + addrf;
+        uint8_t *pdst = dstbuff.raw() + addrt;
 
 #if DBG_VERBOSE >= 2
 
@@ -69,24 +94,23 @@ bool transform(BinaryBuffer& scrbuff,
 
 #endif
 
-        memcpy(pdst, psrc, blksz);
+        std::copy_n(psrc, blksz, pdst);
     }
 
     return true;
 }
 
 // ----------------------------------------------------------------------------------
-int runproc(const std::string& infile,
-    int offs,
-    const Config& cfg,
-    const std::string& outfile)
-{
+int runproc(const std::string &infile,
+            int offs,
+            const Config &cfg,
+            const std::string &outfile) {
     BinaryBuffer scrbuff;
     BinaryBuffer dstbuff;
 
     // Load Original Source
     if (!scrbuff.loadFromFile(infile)) {
-        return error(appErr_ReadSourceFileIO, "invalid source file : ", infile);
+        return verr(appErrs::ReadSourceFileIO, infile);
     }
 
 #if DBG_VERBOSE >= 2
@@ -98,21 +122,19 @@ int runproc(const std::string& infile,
 
     // Transform
     if (!transform(scrbuff, offs, cfg, dstbuff)) {
-        return error(appErr_TransformationFailed, "Выход за границы");
+        return verr(appErrs::TransformationFailed);
     }
 
     // Save results
     if (!dstbuff.saveToFile(outfile)) {
-        return error(
-            appErr_InvalidDestination, "Ошибка записи результата: ", outfile);
+        return verr(appErrs::InvalidDestination, outfile);
     }
 
-    return appErr_AllOk;
+    return vok;
 }
 
 // ----------------------------------------------------------------------------------
-int main(int argc, char* argv[])
-{
+int main(int argc, char *argv[]) {
 
     if (argc > 1 && std::string(argv[1]) == "--version") {
         std::cout << "pushk2pre1move version " << APP_VERSION
@@ -121,19 +143,28 @@ int main(int argc, char* argv[])
     }
 
     if (argc != 5) {
-        return error(appErr_NotEnoughArgs,
-            "Недостаточное количество входных параметров");
+        return verr(appErrs::NotEnoughArgs);
     }
 
     // Разбор входных параметров
     std::string infile = argv[1];
-    int inoffs = std::stoi(argv[2]);
+
+    int inoffs;
+    try {
+        inoffs = std::stoi(argv[2]);
+    } catch (const std::invalid_argument &e) {
+        return verr(appErrs::InvalidArgument, "offset");
+    }
+    if (inoffs < 0) {
+        return verr(appErrs::InvalidArgument, "offset must be >= 0");
+    }
+
     std::string cfgparam = argv[3];
     std::string outfile = argv[4];
 
     // Check Source file
     if (!fileexists(infile)) {
-        return error(appErr_SourceFileMissed, "Отсутствует входной файл: ", infile);
+        return verr(appErrs::SourceFileMissed, infile);
     }
 
     // Check configuration type : .yaml / base64
@@ -143,47 +174,52 @@ int main(int argc, char* argv[])
         std::cout << "YAML file detected\n";
 
         if (!fileexists(cfgparam)) {
-            return error(appErr_ConfigFileMissed,
-                "Отсутствует конфигурационный файл: ",
-                cfgparam);
+            return verr(appErrs::ConfigFileMissed, cfgparam);
         }
 
         // Load transformation parameters
         if (!cfg.InitFromFile(cfgparam.c_str())) {
-            return error(appErr_YAMLParserError,
-                "Ошибка параметров конфигурационного файла: ",
-                cfgparam);
-        }
-    } else {
-        auto decoded = base64_to_vector(cfgparam);
-        if (decoded.empty()) {
-            return error(appErr_Base64Decode, "BASE64 conversion issue");
+            return verr(appErrs::YAMLParserError, cfgparam);
         }
 
-        const char* cstr = reinterpret_cast<const char*>(decoded.data());
+    } else {
+
+        auto decoded = base64_to_vector(cfgparam);
+        if (decoded.empty()) {
+            return verr(appErrs::Base64Decode);
+        }
+
+        const char *cstr = reinterpret_cast<const char *>(decoded.data());
         if (!cfg.InitFromText(cstr)) {
-            return error(appErr_Unsupported, "Ошибка параметров конфигурации BASE64");
+            return verr(appErrs::Unsupported);
         }
     }
 
 #if DBG_VERBOSE > 0
-    std::cout << "Input  : " << infile << "\n";
-    std::cout << "Offset : " << inoffs << "\n";
-    std::cout << "Config : " << cfgparam << "\n";
-    std::cout << "Output : " << outfile << "\n";
-    std::cout << "SRC channels: " << cfg.transform.src.size() << "\n";
-    std::cout << "DST channels: " << cfg.transform.dst.size() << "\n";
+    info("Input  :", infile);
+    info("Offset :", inoffs);
+    info("Config :", cfgparam);
+    info("Output :", outfile);
+    info("SRC channels:", cfg.transform.src.size());
+    info("DST channels:", cfg.transform.dst.size());
 #endif
 
     int r = runproc(infile, inoffs, cfg, outfile);
 
 #if DBG_VERBOSE > 0
     if (r > 0) {
-        std::cout << "Error code : " << r << "\n";
+        info("Error code :", r);
     } else {
-        std::cout << "Transformation completed" << "\n";
+        info("Transformation completed");
     }
 #endif
 
     return r;
 }
+/* ========================[  END FILE CONTENT  ]========================
+ * File             : src/main.cpp
+ * Content size     : 5275
+ * Date / Time      : 27-05-2026 21:53:56
+ * MD5              : 564898a1c29637b6410e2dbb201d8f08
+ * Copyright        : © 2025–2026 Viktor Glebov
+ * ====================================================================== */

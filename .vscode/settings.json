@@ -3,7 +3,11 @@
     // "cmake.buildType": "Release",
     // "cmake.defaultBuildType": "Release",
     "C_Cpp.clang_format_style": "file",
-    "C_Cpp.clang_format_fallbackStyle": "WebKit",
+    "C_Cpp.clang_format_path": "/usr/bin/clang-format",
+    // "C_Cpp.clang_format_fallbackStyle": "WebKit",
+    // "C_Cpp.clang_format_fallbackStyle": "Microsoft",
+    // "C_Cpp.clang_format_fallbackStyle": "file",
+    // "clang-format.style": "file",
     "editor.formatOnSave": true,
     "cmake.debugConfig": {
         "args": [
