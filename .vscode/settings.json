@@ -1,7 +1,10 @@
 {
     "cmake.buildBeforeRun": true,
-    "cmake.buildType": "Release",
-    "cmake.defaultBuildType": "Release",
+    // "cmake.buildType": "Release",
+    // "cmake.defaultBuildType": "Release",
+    "C_Cpp.clang_format_style": "file",
+    "C_Cpp.clang_format_fallbackStyle": "WebKit",
+    "editor.formatOnSave": true,
     "cmake.debugConfig": {
         "args": [
             // "examples/example1.scr", "0", "cfg/zx_filter_a.yaml", "examples/results/example1a.scr"
