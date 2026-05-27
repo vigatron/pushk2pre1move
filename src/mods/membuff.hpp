@@ -1,3 +1,19 @@
+/* ==========================================================================
+ * Application   : pushk2pre1move
+ * Description   : PUSHK Archiver: representation-first compression filter
+ * Revision      : 1.0.1
+ * Source        : https://github.com/vigatron/pushk2pre1move
+ * Disclaimer    : Provided "AS IS", without warranty.
+ * License       : MIT
+ * File          : src/mods/membuff.hpp
+ * Content size  : 5022
+ * Date / Time   : 27-05-2026 21:53:56
+ * MD5           : 3c8cdde24b3bfe075af28ee2ff1a91c6
+ * Notes         : MD5 = file content without header/footer
+ * Encoding      : UTF-8
+ * Author        : Viktor Glebov / V01G04A81
+ * Copyright     : © 2025–2026 Viktor Glebov
+ * ========================[ BEGIN FILE CONTENT ]============================ */
 #pragma once
 
 #include <cstdint>
@@ -210,3 +226,10 @@ private:
         return static_cast<size_t>(1024ULL * 1024ULL * 1024ULL); // 1 GB
     }
 };
+/* ========================[  END FILE CONTENT  ]========================
+ * File             : src/mods/membuff.hpp
+ * Content size     : 5022
+ * Date / Time      : 27-05-2026 21:53:56
+ * MD5              : 3c8cdde24b3bfe075af28ee2ff1a91c6
+ * Copyright        : © 2025–2026 Viktor Glebov
+ * ====================================================================== */

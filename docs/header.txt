@@ -1,4 +1,4 @@
-/*
+/* ==========================================================================
  * Application   : pushk2pre1move
  * Description   : PUSHK Archiver: representation-first compression filter
  * Revision      : 1.0.1
@@ -13,6 +13,4 @@
  * Encoding      : UTF-8
  * Author        : Viktor Glebov / V01G04A81
  * Copyright     : © 2025–2026 Viktor Glebov
- */
-
-/* ========================[ BEGIN FILE CONTENT ]======================== */
+ * ========================[ BEGIN FILE CONTENT ]============================ */

@@ -1,0 +1,18 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+
+# Не ограничиваем длину строки
+ColumnLimit: 0
+
+# Не переносим комментарии
+ReflowComments: false
+
+# Включаем выравнивание комментариев
+AlignTrailingComments: true
+
+# Минимальное количество пробелов перед комментарием
+SpacesBeforeTrailingComments: 4
+
+# Жёсткая позиция для комментариев
+# Все trailing comments будут начинаться с этой колонки
+CommentColumn: 50
